@@ -214,7 +214,7 @@ namespace ZXing.Rendering
          }
 
          image.AddHeader();
-         image.AddTag(0, 0, width, height, Background, Foreground);
+         image.AddTag(startX, startY, width, height, Background, Foreground);
          AppendDarkCell(image, matrix, 0, 0);
 
          if (outputContent)
@@ -259,8 +259,8 @@ namespace ZXing.Rendering
          int height = matrix.Height;
          var processed = new BitMatrix(width, height);
          bool currentIsBlack = false;
-         int startPosX = 0;
-         int startPosY = 0;
+         int startPosX = StartX;
+         int startPosY = StartY;
          for (int x = 0; x < width; x++)
          {
             int endPosX;
@@ -348,6 +348,16 @@ namespace ZXing.Rendering
          /// The original width of the bitmatrix for the barcode
          /// </summary>
          public int Width { get; set; }
+         
+         /// <summary>
+         /// The original startpositionX of the bitmatrix for the barcode
+         /// </summary>
+         public int StartX { get; set; }
+         
+         /// <summary>
+         /// The original startpositionY of the bitmatrix for the barcode
+         /// </summary>
+         public int StartY { get; set; }
 
          /// <summary>
          /// Initializes a new instance of the <see cref="SvgImage"/> class.
@@ -360,11 +370,13 @@ namespace ZXing.Rendering
          /// <summary>
          /// Initializes a new instance of the <see cref="SvgImage"/> class.
          /// </summary>
-         public SvgImage(int width, int height)
+         public SvgImage(int width, int height, int startX, int startY)
          {
             content = new StringBuilder();
             Width = width;
             Height = height;
+            StartX = startX;
+            StartY = startY;
          }
 
          /// <summary>
